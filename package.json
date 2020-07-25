@@ -1,0 +1,22 @@
+{
+  "name": "based-note-taker",
+  "version": "1.0.0",
+  "description": "Node-based note taking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srmchartroom/node-based-note-taker.git"
+  },
+  "author": "Sean McGinnis | srmchartroom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/srmchartroom/node-based-note-taker/issues"
+  },
+  "homepage": "https://github.com/srmchartroom/node-based-note-taker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
