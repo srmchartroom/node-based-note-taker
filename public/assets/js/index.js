@@ -58,11 +58,30 @@ const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
-    // id: function () {
-    //   let notes = getNotes;
-    //   let lastId = notes[notes.length - 1].id;
-    //   let newId = lastId + 1;
-    //   return newId;
+
+    //! set ID here?
+    id: function () {
+      let notes = getNotes();
+      //! Initially set the id to 0
+      newId = 0;
+      //! Run a for loop
+      for (let i = 0; i < notes.length; i++) {
+        //! 1st if the id of notes[i] doesn't exist...
+        if ((notes[i].id = undefined)) {
+          //! ... set notes[i].id to "i"....
+          notes[i].id = i;
+          //! ...set this note's id to notes[i].id + 1
+          newId = notes[i].id + 1;
+
+          //! if notes[i].id does exist, but is greater than "id",....
+        } else if (notes[i].id > id) {
+          //! ... set id to notes[i].id + 1 ...
+          newId = notes[i].id + 1;
+        } else {
+          newId = notes.length;
+        }
+        return newId;
+      }
     },
   };
 

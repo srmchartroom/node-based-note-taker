@@ -1,4 +1,4 @@
 [
-  { "title": "Test Title", "text": "Test text" },
-  { "title": "testtitle2", "text": "text txt2" }
+  { "title": "Test Title", "text": "Test text", "id": "1" },
+  { "title": "testtitle2", "text": "text txt2", "id": "2" }
 ]

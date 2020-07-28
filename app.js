@@ -57,7 +57,7 @@ app.post("/api/notes", function (req, res) {
 
   notes.push(newNote);
 
-  res.json(newNote);
+  res.json(true);
 });
 
 // Delete `/api/notes/:id`
