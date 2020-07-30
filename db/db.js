@@ -14,7 +14,7 @@ class DB {
     return readFileAsync("db/db.json", "utf8");
   }
   // getNotes function for DB class
-  //! WORKING / DO NOT TOUCH ----------------
+  //! WORKING / DO NOT TOUCH
   getNotes() {
     return this.read().then((notes) => {
       let data;
@@ -26,30 +26,43 @@ class DB {
       return data;
     });
   }
-  //! ----------------------------------------
-  // addNote function for DB class
-  addNote(note) {
-    this.getNotes().then((notes) => {
-      note.id = parseInt(notes[notes.length - 1].id) + 1; // create UID
-      notes.push(note);
-      return this.writeNotes(notes);
-    }); // push new note to notes array
-  }
   // writeNotes function for DB class
   writeNotes(notes) {
-    return writeFileAsync("db/db.json", JSON.stringify(notes));
+    writeFileAsync("db/db.json", JSON.stringify(notes));
+  }
+  // addNote function for DB class
+  saveNote(note) {
+    this.getNotes().then((notes) => {
+      if (notes.length === 0) {
+        note.id = 1;
+      } else {
+        note.id = notes[notes.length - 1].id + 1;
+      }
+      notes.push(note);
+      this.writeNotes(notes);
+      return JSON.stringify(note);
+    }); // push new note to notes array
   }
   // deleteNotes function for DB class
-  deleteNotes(dID) {
-    this.getNotes().then((notes) => {
-      let newNotes = notes.filter(function (note) {
-        return parseInt(note.id) !== parseInt(dID);
+  deleteNote(idDelete) {
+    this.getNotes()
+      .then((notes) => {
+        let newNotes = notes.filter((note) => {
+          note.id !== idDelete;
+        });
+        return newNotes;
+      })
+      .then((newNotes) => {
+        return this.writeNotes(newNotes);
       });
-      console.log(newNotes);
-      return this.writeNotes(newNotes);
-    });
   }
-}
 
+  // return writeFileAsync("db/db.json", JSON.stringify(newNotes));
+  // this.writeNotes(newNotes);
+  // return JSON.parse(newNotes);
+  // }
+  // }
+  // }
+}
 // Exporting the notes array to make accessible in other files via "require".
 module.exports = new DB();
