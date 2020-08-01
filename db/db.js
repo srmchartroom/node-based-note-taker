@@ -10,11 +10,12 @@ const writeFileAsync = util.promisify(fs.writeFile);
 // NOTE: Initially, set to a "dummy" notes, but could be an empty array as well.
 // ===============================================================================
 class DB {
+  // read the notes function
   read() {
     return readFileAsync("db/db.json", "utf8");
   }
   // getNotes function for DB class
-  //! WORKING / DO NOT TOUCH
+
   getNotes() {
     return this.read().then((notes) => {
       let data;
@@ -28,41 +29,36 @@ class DB {
   }
   // writeNotes function for DB class
   writeNotes(notes) {
-    writeFileAsync("db/db.json", JSON.stringify(notes));
+    return writeFileAsync("db/db.json", JSON.stringify(notes));
   }
   // addNote function for DB class
-  saveNote(note) {
-    this.getNotes().then((notes) => {
-      if (notes.length === 0) {
-        note.id = 1;
-      } else {
-        note.id = notes[notes.length - 1].id + 1;
-      }
-      notes.push(note);
-      this.writeNotes(notes);
-      return JSON.stringify(note);
-    }); // push new note to notes array
-  }
-  // deleteNotes function for DB class
-  deleteNote(idDelete) {
-    this.getNotes()
+  saveNote(newNote) {
+    // run getNotes() fuction to get the current notes array in db.json, then...
+    return this.getNotes()
       .then((notes) => {
-        let newNotes = notes.filter((note) => {
-          note.id !== idDelete;
-        });
-        return newNotes;
+        // if there are no notes in db.json...
+        if (notes.length === 0) {
+          // set the note.id to "1".
+          newNote.id = 1;
+          // otherwise,...
+        } else {
+          // set the id to the id of the last note in the array + 1.
+          newNote.id = notes[notes.length - 1].id + 1;
+        }
+        // Push the new note to notes array in db.json.
+        notes.push(newNote);
+        return notes;
       })
-      .then((newNotes) => {
-        return this.writeNotes(newNotes);
-      });
+      .then((newNotes) => this.writeNotes(newNotes))
+      .then(() => newNote);
   }
 
-  // return writeFileAsync("db/db.json", JSON.stringify(newNotes));
-  // this.writeNotes(newNotes);
-  // return JSON.parse(newNotes);
-  // }
-  // }
-  // }
+  // deleteNotes function for DB class
+  deleteNote(idDelete) {
+    return this.getNotes()
+      .then((notes) => notes.filter((note) => note.id !== idDelete))
+      .then((newNotes) => this.writeNotes(newNotes));
+  }
 }
 // Exporting the notes array to make accessible in other files via "require".
 module.exports = new DB();

@@ -59,13 +59,24 @@ app.get("/api/notes", function (req, res) {
     });
 });
 //! ------------------------
-// * ------------------------------------------
+
+// Delete `/api/notes/:id`
+app.delete("/api/notes/:id", function (req, res) {
+  DB.deleteNote(parseInt(req.params.id))
+    .then(function () {
+      res.json({ ok: true });
+    })
+    .catch(function (err) {
+      res.status(500).json(err);
+      console.log(err);
+    });
+});
 
 // Receives new note to save on request body and adds it to db.json file; then returns new note to the client
 app.post("/api/notes", function (req, res) {
-  let note = req.body;
-  DB.saveNote(note)
+  DB.saveNote(req.body)
     .then(function (newnote) {
+      console.log(newnote);
       res.json(newnote);
     })
     .catch(function (err) {
@@ -74,18 +85,7 @@ app.post("/api/notes", function (req, res) {
     });
 });
 
-// Delete `/api/notes/:id`
-app.delete("/api/notes/:id", function (req, res) {
-  let resultId = parseInt(req.param.id);
-  res.json(DB.deleteNote(resultId));
-  // .then(function (notes) {
-  //   res.json(notes);
-  // })
-  // .catch(function (err) {
-  //   res.status(500).json(err);
-  //   console.log(err);
-  // });
-});
+// * ------------------------------------------
 
 // Basic route that sends the user first to index.html page
 //! THIS WORKS - DO NOT TOUCH
