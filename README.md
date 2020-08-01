@@ -26,7 +26,7 @@ The application package is a node.js-based program that leverages express for se
 
 The below video provides an overview of the CLI README Generator, the code involved and how it works, as well as a demo of the generator in action.
 
-[![OVERVIEW: THE NOTE TAKER APPLICATION IN ACTION](https://chartroomcreative.com/gitassets/CLI-README-GENERATOR_1.jpg)](https://chartroomcreative.com/gitassets/CLI-README-GENERATOR_1.mp4)
+[![OVERVIEW: THE NOTE TAKER APPLICATION IN ACTION](https://chartroomcreative.com/gitassets/Node-Based-Note-Taker.jpg)](https://chartroomcreative.com/gitassets/Node-Based-Note-Taker.mp4)
 
 ## License
 
